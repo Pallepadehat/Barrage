@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# SPDX-License-Identifier: MIT OR Apache-2.0
+# SPDX-License-Identifier: MIT
 #
 # PostToolUse hook: format the file Claude just edited.
 # Silent no-op when the formatter isn't installed yet, so it's safe pre-foundation.

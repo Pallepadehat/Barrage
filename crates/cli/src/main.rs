@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT OR Apache-2.0
+// SPDX-License-Identifier: MIT
 
 //! The `barrage` command-line tool: runs Barrage plans headless, e.g. in CI.
 

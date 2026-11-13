@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT OR Apache-2.0
+// SPDX-License-Identifier: MIT
 
 //! Engine process spawned by the Barrage desktop app.
 //!

@@ -33,7 +33,7 @@ Goal: an empty-but-real monorepo where every crate and package builds, `just che
 
 ### M0-01 — Cargo workspace + crate stubs
 
-- Root `Cargo.toml` workspace with members `crates/{plan,engine,protocol,sidecar,cli}` (desktop `src-tauri` joins in M0-08), `resolver = "3"`, shared `[workspace.package]` (edition 2024, license `MIT OR Apache-2.0`, rust-version) and `[workspace.dependencies]`.
+- Root `Cargo.toml` workspace with members `crates/{plan,engine,protocol,sidecar,cli}` (desktop `src-tauri` joins in M0-08), `resolver = "3"`, shared `[workspace.package]` (edition 2024, license `MIT`, rust-version) and `[workspace.dependencies]`.
 - `[workspace.lints]`: `unsafe_code = "forbid"`, clippy `unwrap_used`, `expect_used`, `panic` = deny (allowed in tests), `missing_docs = "warn"` for libraries.
 - Each lib crate has a `lib.rs` with a crate doc comment; `sidecar` and `cli` have a `main.rs` that prints the version.
 - **Acceptance:** `cargo build --workspace`, `cargo clippy --workspace --all-targets -- -D warnings`, `cargo fmt --check` and `cargo test --workspace` pass.
