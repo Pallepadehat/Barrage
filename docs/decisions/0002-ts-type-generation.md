@@ -10,7 +10,7 @@ The PRD makes Rust the single source of truth for plan and protocol types and ge
 ## Decision
 
 - Library crates derive `ts_rs::TS` only behind a `ts` cargo feature (`#[cfg_attr(feature = "ts", derive(ts_rs::TS))]`), so per-package and release builds of the engine, sidecar and CLI don't compile ts-rs. Workspace builds unify features and do, so `just check` also lints `barrage-plan` on its own with `ts` off.
-- A dev-only binary, `crates/typegen` (`publish = false`), enables those features and exports every type reachable from the root types (`Plan` today; protocol `Command`/`Event` join in M0-07) into `packages/types/src/generated/`, plus an `index.ts` barrel. `just types` runs `barrage-typegen write`; `just check` runs `barrage-typegen check`, which compares a fresh generation to the directory without touching it.
+- A dev-only binary, `crates/typegen` (`publish = false`), enables those features and exports every type reachable from the root types (`Plan`, and the protocol envelopes `CommandMessage`/`EventMessage` plus the `Command`/`Event` enums they inline) into `packages/types/src/generated/`, plus an `index.ts` barrel. `just types` runs `barrage-typegen write`; `just check` runs `barrage-typegen check`, which compares a fresh generation to the directory without touching it.
 - Mapping rules: 64-bit integers are `number` (plan values are milliseconds and counts, far below 2^53, and `serde_json` writes them as numbers). `Option` fields that are skipped when `None` get field-level `#[ts(optional)]`, so they are `field?: T` and never `null`: the plan reader rejects `null` for text fields, and the writer never emits it.
 
 ## Consequences

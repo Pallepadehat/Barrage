@@ -8,9 +8,11 @@ license.workspace = true
 authors.workspace = true
 
 [dependencies]
+anyhow.workspace = true
 barrage-engine.workspace = true
 barrage-plan.workspace = true
 barrage-protocol.workspace = true
+tokio = { workspace = true, features = ["rt-multi-thread", "macros", "io-std", "io-util"] }
 
 [lints]
 workspace = true

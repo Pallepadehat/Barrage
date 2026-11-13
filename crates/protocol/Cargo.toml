@@ -9,6 +9,14 @@ authors.workspace = true
 
 [dependencies]
 barrage-plan.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+ts-rs = { workspace = true, optional = true }
+
+[features]
+# TypeScript bindings via ts-rs, used by `barrage-typegen` (`just types`).
+ts = ["dep:ts-rs", "barrage-plan/ts"]
 
 [lints]
 workspace = true

@@ -11,6 +11,7 @@ publish = false
 [dependencies]
 anyhow.workspace = true
 barrage-plan = { workspace = true, features = ["ts"] }
+barrage-protocol = { workspace = true, features = ["ts"] }
 ts-rs.workspace = true
 
 [lints]
