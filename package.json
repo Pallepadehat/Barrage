@@ -1,0 +1,19 @@
+{
+  "name": "barrage",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "packageManager": "pnpm@12.18.0",
+  "engines": {
+    "node": ">=26"
+  },
+  "scripts": {
+    "lint": "biome ci .",
+    "format": "biome format --write .",
+    "typecheck": "pnpm -r typecheck"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.6.7",
+    "typescript": "7.0.2"
+  }
+}

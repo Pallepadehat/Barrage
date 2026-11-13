@@ -20,7 +20,7 @@ Goal: an empty-but-real monorepo where every crate and package builds, `just che
 | ID    | Task                                         | Depends on          | Status | Notes |
 | ----- | -------------------------------------------- | ------------------- | ------ | ----- |
 | M0-01 | Cargo workspace + crate stubs                | —                   | done   |       |
-| M0-02 | pnpm workspace + Biome + TS config           | —                   | todo   |       |
+| M0-02 | pnpm workspace + Biome + TS config           | —                   | done   |       |
 | M0-03 | justfile with the gate                       | M0-01, M0-02        | todo   |       |
 | M0-04 | CI workflow                                  | M0-03               | todo   |       |
 | M0-05 | Plan model v0 + YAML/JSON I/O                | M0-01               | todo   |       |
