@@ -53,7 +53,7 @@ Toolchain: Rust stable (see `rust-toolchain.toml`), Node (see `.node-version`), 
 | `just types`     | Regenerate `packages/types` from Rust (ts-rs)                    |
 | `just bench`     | Engine throughput benchmark                                      |
 
-All recipes exist. `dev` and `bench` are stubs that print "not yet implemented" until M0-08 and M1 land.
+All recipes exist. `bench` is a stub that prints "not yet implemented" until M1 lands.
 
 Before you say a change is done, run `just check` and make sure it passes.
 

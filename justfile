@@ -16,7 +16,7 @@ setup:
 
 # Run the desktop app with hot reload
 dev:
-    @echo "just dev: not yet implemented (lands with M0-08)"
+    pnpm --filter @barrage/desktop tauri dev
 
 # Where `just types` writes the generated TS types
 types_dir := "packages/types/src/generated"
