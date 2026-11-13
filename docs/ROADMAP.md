@@ -53,7 +53,7 @@ Goal: an empty-but-real monorepo where every crate and package builds, `just che
 
 ### M0-04 — CI workflow
 
-- `.github/workflows/ci.yml` on PR and push to `main` and `develop`: one job on `macos-14` running `just setup && just check`, with Rust and pnpm caches.
+- `.github/workflows/ci.yml` on PR and push to `main` and `develop`: one job on `macos-15` (`macos-14` runners are retired) running `just setup && just check`, with Rust and pnpm caches.
 - A separate job building the desktop app (`tauri build --debug` or equivalent) once M0-08 lands; until then it's absent, not failing.
 - **Acceptance:** CI is green on the PR that adds it.
 
