@@ -9,7 +9,7 @@ use std::path::PathBuf;
 #[derive(Debug, thiserror::Error)]
 pub enum PlanError {
     /// The file name ends in neither `.yaml`/`.yml` nor `.json`.
-    #[error("{}: unsupported plan file extension (expected .barrage.yaml or .barrage.json)", path.display())]
+    #[error("{}: unsupported plan file extension (expected .yaml, .yml or .json)", path.display())]
     UnsupportedExtension {
         /// The file that was given.
         path: PathBuf,

@@ -36,8 +36,12 @@ pub struct ThreadGroup {
     /// Random extra wait added to the think time, from 0 to this many milliseconds.
     #[serde(default, skip_serializing_if = "is_zero")]
     pub think_jitter_ms: u64,
-    /// Target requests per second, shared across the group's users.
-    #[serde(default, skip_serializing_if = "Option::is_none")]
+    /// Target requests per second, shared across the group's users. Must be finite.
+    #[serde(
+        default,
+        deserialize_with = "super::scalar::opt_finite",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub target_rps: Option<f64>,
     /// The steps each user runs, in order.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]

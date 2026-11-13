@@ -6,6 +6,7 @@ mod assertion;
 mod extractor;
 mod http;
 mod plan;
+mod scalar;
 mod serde_util;
 mod step;
 mod thread_group;

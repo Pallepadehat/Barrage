@@ -14,6 +14,7 @@ pub enum Assertion {
     /// Status code matches a spec such as `200,201`, `200-299` or `2xx`.
     Status {
         /// The status spec.
+        #[serde(deserialize_with = "super::scalar::text")]
         expected: String,
     },
     /// Response body contains, or does not contain, some text.
@@ -21,6 +22,7 @@ pub enum Assertion {
         /// Which check to run.
         check: TextCheck,
         /// The text to look for.
+        #[serde(deserialize_with = "super::scalar::text")]
         text: String,
     },
     /// An RFC 9535 JSONPath query on the response body.
@@ -31,7 +33,11 @@ pub enum Assertion {
         /// Which check to run.
         check: JsonPathCheck,
         /// The value compared against, for `equals` and `contains`.
-        #[serde(default, skip_serializing_if = "Option::is_none")]
+        #[serde(
+            default,
+            deserialize_with = "super::scalar::opt_text",
+            skip_serializing_if = "Option::is_none"
+        )]
         value: Option<String>,
     },
     /// The response arrived within a time limit.
@@ -47,7 +53,11 @@ pub enum Assertion {
         /// Which check to run.
         check: HeaderCheck,
         /// The value looked for, for `contains`.
-        #[serde(default, skip_serializing_if = "Option::is_none")]
+        #[serde(
+            default,
+            deserialize_with = "super::scalar::opt_text",
+            skip_serializing_if = "Option::is_none"
+        )]
         value: Option<String>,
     },
 }

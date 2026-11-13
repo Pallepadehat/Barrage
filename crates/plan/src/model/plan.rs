@@ -44,6 +44,7 @@ pub struct KeyValue {
     /// Header or parameter name.
     pub key: String,
     /// Header or parameter value; may contain `${...}` references.
+    #[serde(deserialize_with = "super::scalar::text")]
     pub value: String,
     /// Whether the pair is sent. Disabled pairs stay in the file.
     #[serde(default = "default_true", skip_serializing_if = "is_true")]
@@ -93,6 +94,7 @@ pub struct CsvDataSet {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub delimiter: Option<char>,
     /// At end of file, start over (`true`) or stop the user (`false`).
+    /// Always written, unlike other defaults, so the choice is visible in the file.
     #[serde(default = "default_true")]
     pub recycle: bool,
 }

@@ -47,6 +47,42 @@ fn json_twin_matches_yaml_example() {
     );
 }
 
+/// The plan exactly as the PRD prints it, flow style included.
+const PRD_PLAN: &str = r#"name: Checkout API
+variables:
+  - { key: host, value: https://api.example.com }
+defaults:
+  baseUrl: ${host}
+  timeoutMs: 30000
+  cookies: true
+csvData:
+  - { path: users.csv, variables: [email, password], recycle: true }
+threadGroups:
+  - name: Shoppers
+    users: 200
+    rampUpSecs: 60
+    durationSecs: 300
+    thinkTimeMs: 500
+    thinkJitterMs: 250
+    steps:
+      - type: http
+        name: Login
+        method: POST
+        url: /login
+        bodyType: json
+        body: '{"email":"${email}","password":"${password}"}'
+        assertions:
+          - { type: status, expected: 2xx }
+        extractors:
+          - { kind: jsonPath, var: token, expr: $.token }
+"#;
+
+#[test]
+fn prd_flow_style_plan_loads_to_the_example() {
+    let example = barrage_plan::load(example("checkout.barrage.yaml")).unwrap();
+    assert_eq!(Format::Yaml.parse(PRD_PLAN).unwrap(), example);
+}
+
 #[test]
 fn example_matches_the_prd_plan() {
     let plan = barrage_plan::load(example("checkout.barrage.yaml")).unwrap();

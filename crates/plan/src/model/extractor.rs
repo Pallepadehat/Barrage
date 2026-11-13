@@ -16,7 +16,11 @@ pub enum Extractor {
         /// The JSONPath expression.
         expr: String,
         /// Value used when nothing matches.
-        #[serde(default, skip_serializing_if = "Option::is_none")]
+        #[serde(
+            default,
+            deserialize_with = "super::scalar::opt_text",
+            skip_serializing_if = "Option::is_none"
+        )]
         default: Option<String>,
     },
     /// A regular expression on the response body; takes a capture group.
@@ -29,7 +33,11 @@ pub enum Extractor {
         #[serde(default, skip_serializing_if = "Option::is_none")]
         group: Option<u32>,
         /// Value used when nothing matches.
-        #[serde(default, skip_serializing_if = "Option::is_none")]
+        #[serde(
+            default,
+            deserialize_with = "super::scalar::opt_text",
+            skip_serializing_if = "Option::is_none"
+        )]
         default: Option<String>,
     },
     /// A response header's value.
@@ -39,7 +47,11 @@ pub enum Extractor {
         /// Header name, matched case-insensitively.
         name: String,
         /// Value used when the header is missing.
-        #[serde(default, skip_serializing_if = "Option::is_none")]
+        #[serde(
+            default,
+            deserialize_with = "super::scalar::opt_text",
+            skip_serializing_if = "Option::is_none"
+        )]
         default: Option<String>,
     },
 }

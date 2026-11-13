@@ -6,7 +6,8 @@ A plan is one file: `*.barrage.yaml` (default) or `*.barrage.json`. Both hold th
 
 - Keys are camelCase and always written in the order below, so diffs stay small.
 - Unknown keys are an error (`file:line:column: unknown field ...`), so typos don't pass silently.
-- Optional settings left at their default are not written. `enabled` is written only when `false`.
+- Optional settings left at their default are not written. `enabled` is written only when `false`. The one exception is a CSV data set's `recycle`, which is always written.
+- Text fields in steps, assertions, extractors and headers accept bare numbers and booleans (`expected: 200` is read as `"200"`), in their normalised form: write `'007'`, not `007`, when the exact spelling matters. Barrage always quotes such values when it saves. Numbers must be finite.
 - Strings may contain `${name}` references; they're resolved at run time, not on load.
 
 ## Plan

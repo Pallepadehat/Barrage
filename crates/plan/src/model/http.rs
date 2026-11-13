@@ -32,7 +32,11 @@ pub struct HttpRequest {
     #[serde(default, skip_serializing_if = "BodyType::is_none")]
     pub body_type: BodyType,
     /// Request body. For `form`, a URL-encoded string such as `a=1&b=2`.
-    #[serde(default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        default,
+        deserialize_with = "super::scalar::opt_text",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub body: Option<String>,
     /// Timeout in milliseconds, overriding the plan default.
     #[serde(default, skip_serializing_if = "Option::is_none")]
