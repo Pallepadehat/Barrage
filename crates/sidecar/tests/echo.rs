@@ -69,6 +69,13 @@ impl Sidecar {
     }
 }
 
+impl Drop for Sidecar {
+    /// Don't leave a process behind when an assertion fails mid-test.
+    fn drop(&mut self) {
+        let _ = self.child.kill();
+    }
+}
+
 #[test]
 fn hello_ready_shutdown_exits_zero() {
     let mut sidecar = Sidecar::spawn();

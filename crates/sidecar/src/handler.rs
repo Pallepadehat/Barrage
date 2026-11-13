@@ -2,7 +2,7 @@
 
 //! Decides what to do with one input line. Pure: no I/O, so it's easy to test.
 
-use barrage_protocol::{Command, Event, EventMessage, decode_command};
+use barrage_protocol::{Command, Event, EventMessage, RequestId, decode_command};
 
 use crate::VERSION;
 
@@ -35,7 +35,7 @@ pub(crate) fn handle(line: &[u8]) -> Action {
 }
 
 /// An `error` event, optionally answering a command.
-pub(crate) fn error(id: Option<u64>, message: String) -> EventMessage {
+pub(crate) fn error(id: Option<RequestId>, message: String) -> EventMessage {
     EventMessage::new(id, Event::Error { message })
 }
 
