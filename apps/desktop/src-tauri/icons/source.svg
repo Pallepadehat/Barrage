@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <title>Barrage</title>
+  <rect x="100" y="100" width="824" height="824" rx="185" fill="#2f6fe0"/>
+  <g fill="#ffffff">
+    <rect x="270" y="560" width="96" height="200" rx="24"/>
+    <rect x="414" y="440" width="96" height="320" rx="24"/>
+    <rect x="558" y="340" width="96" height="420" rx="24"/>
+    <rect x="702" y="260" width="96" height="500" rx="24" opacity="0.85"/>
+  </g>
+</svg>
