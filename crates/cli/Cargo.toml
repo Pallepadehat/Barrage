@@ -1,0 +1,19 @@
+[package]
+name = "barrage-cli"
+description = "Barrage command-line tool for running load tests headless"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+
+[[bin]]
+name = "barrage"
+path = "src/main.rs"
+
+[dependencies]
+barrage-engine.workspace = true
+barrage-plan.workspace = true
+
+[lints]
+workspace = true

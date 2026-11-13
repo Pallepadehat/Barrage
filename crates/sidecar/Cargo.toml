@@ -1,0 +1,16 @@
+[package]
+name = "barrage-sidecar"
+description = "Barrage engine process spawned by the desktop app"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+
+[dependencies]
+barrage-engine.workspace = true
+barrage-plan.workspace = true
+barrage-protocol.workspace = true
+
+[lints]
+workspace = true
