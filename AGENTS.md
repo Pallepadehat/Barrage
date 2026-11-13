@@ -67,7 +67,7 @@ Before you say a change is done, run `just check` and make sure it passes. If a 
 **General**
 - One concept per file, ~300 lines max. Prefer small modules over clever ones.
 - No new dependency without a one-line reason in the PR description. Prefer the crates/packages named in the PRD stack table.
-- SPDX header on every source file: `// SPDX-License-Identifier: MIT OR Apache-2.0`.
+- SPDX header on every source file: `// SPDX-License-Identifier: MIT`.
 
 **Rust**
 - `rustfmt`; `clippy -D warnings` (workspace lints in the root `Cargo.toml`).
@@ -92,7 +92,7 @@ Before you say a change is done, run `just check` and make sure it passes. If a 
 
 ## Guardrails
 
-- Don't hand-edit `packages/types/` or `LICENSE-*`. Don't change `docs/PRD.md` or `docs/DESIGN.md` decisions unless asked; propose the change in the PR description (or an ADR) instead. Fixing a doc that's factually out of date with the code is fine.
+- Don't hand-edit `packages/types/` or `LICENSE`. Don't change `docs/PRD.md` or `docs/DESIGN.md` decisions unless asked; propose the change in the PR description (or an ADR) instead. Fixing a doc that's factually out of date with the code is fine.
 - Don't add features outside the PRD MVP scope or listed as non-goals (distributed load, non-HTTP protocols, JMX import, scripting) unless the task says so.
 - Don't run load tests against hosts you don't own. Tests and benchmarks use the in-process mock server or `localhost`.
 - Never commit secrets, `.env` files, or real customer URLs. Example plans use `https://api.example.com` or a local mock.

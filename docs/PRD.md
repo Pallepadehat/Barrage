@@ -227,7 +227,7 @@ barrage/
 ├─ docs/                  # DESIGN.md, ARCHITECTURE.md, plan-format.md
 ├─ .github/               # CI, issue and PR templates
 ├─ Cargo.toml  package.json  pnpm-workspace.yaml  justfile
-└─ LICENSE-MIT  LICENSE-APACHE  README.md  CONTRIBUTING.md
+└─ LICENSE  README.md  CONTRIBUTING.md
 ```
 
 **Code standards**
@@ -242,7 +242,7 @@ barrage/
 **Open-source readiness (before the first public release)**
 
 - [ ] README with a screenshot, a 30-second GIF, install steps (dmg, Homebrew cask, `cargo install`) and a 3-step quick start
-- [ ] `LICENSE-MIT` and `LICENSE-APACHE`, with SPDX headers in source files
+- [x] `LICENSE` (MIT), with SPDX headers in source files
 - [ ] CONTRIBUTING.md (setup, `just` commands, architecture tour, PR checklist) and a Contributor Covenant CODE_OF_CONDUCT.md
 - [ ] SECURITY.md with a private reporting address
 - [ ] Issue templates (bug, feature) and a PR template; `good first issue` and `help wanted` labels
@@ -296,7 +296,7 @@ Phases are ordered by priority. Dates are set once the MVP estimate is in.
 | -------------- | ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Plan format    | YAML and JSON                       | YAML (`.barrage.yaml`) is the default for hand-editing; JSON (`.barrage.json`) is fully supported; the app and CLI open both                                                                                                                                                                                                            |
 | Business model | Free and open source                | No paid tiers; team sharing, cloud runners and distributed agents are open source too                                                                                                                                                                                                                                                   |
-| License        | Dual-licensed MIT OR Apache-2.0     | Users pick either; matches Rust, tokio and serde; Apache-2.0 gives a patent grant, MIT keeps it simple and GPLv2-compatible. Repo ships `LICENSE-MIT` and `LICENSE-APACHE`; contributions are accepted under both                                                                                                                       |
+| License        | MIT                                 | One short, permissive license that GitHub and package registries detect automatically; the repo ships a single `LICENSE` file and contributions are accepted under it                                                                                                                                                                   |
 | Engine process | Sidecar process that uses all cores | The engine runs outside the app process with a multi-threaded runtime; an engine crash or saturation never freezes the UI                                                                                                                                                                                                               |
 | Sidecar IPC    | stdio, newline-delimited JSON       | Tauri's built-in sidecar support spawns the engine and owns its pipes; no port or socket file to manage, nothing other local processes can connect to, and the engine exits with the app. Commands go in on stdin, snapshots come out on stdout, and logs go to stderr. Two 50 KB snapshots per second is far below what a pipe carries |
 | Minimum macOS  | macOS 14 Sonoma                     | Newer WebKit in the web view and a smaller test matrix                                                                                                                                                                                                                                                                                  |
