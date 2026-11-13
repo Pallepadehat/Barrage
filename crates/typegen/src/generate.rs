@@ -22,7 +22,7 @@ const BARREL: &str = "index.ts";
 ///
 /// ts-rs only exports to disk, so types go to a scratch directory first and are
 /// read back. Large integers become `number`: plan values (milliseconds, counts)
-/// stay far below 2^53, and `serde_json` writes them as plain numbers.
+/// and request ids stay far below 2^53, and `serde_json` writes them as plain numbers.
 pub(crate) fn generate() -> Result<Files> {
     let scratch = Scratch::new()?;
     let cfg = Config::new()
@@ -31,6 +31,11 @@ pub(crate) fn generate() -> Result<Files> {
 
     // Roots: everything else is pulled in as a dependency.
     barrage_plan::Plan::export_all(&cfg).context("exporting Plan")?;
+    barrage_protocol::CommandMessage::export_all(&cfg).context("exporting CommandMessage")?;
+    barrage_protocol::EventMessage::export_all(&cfg).context("exporting EventMessage")?;
+    // The envelopes inline these; export them too so the app can name them.
+    barrage_protocol::Command::export_all(&cfg).context("exporting Command")?;
+    barrage_protocol::Event::export_all(&cfg).context("exporting Event")?;
 
     let mut files = read_ts_files(scratch.path())?;
     files.insert(BARREL.to_owned(), barrel(&files));
@@ -83,7 +88,15 @@ mod tests {
     #[test]
     fn generates_plan_and_a_barrel_exporting_every_type() {
         let files = generate().unwrap();
-        assert!(files.contains_key("Plan.ts"));
+        for root in [
+            "Plan.ts",
+            "CommandMessage.ts",
+            "EventMessage.ts",
+            "Command.ts",
+            "Event.ts",
+        ] {
+            assert!(files.contains_key(root), "missing {root}");
+        }
         let index = &files[BARREL];
         for name in files.keys().filter(|n| *n != BARREL) {
             let ty = name.trim_end_matches(".ts");

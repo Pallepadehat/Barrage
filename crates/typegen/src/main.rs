@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-//! Generates the TypeScript types in `packages/types` from the Rust plan types.
+//! Generates the TypeScript types in `packages/types` from the Rust plan and protocol types.
 //!
 //! ```text
 //! barrage-typegen write <dir>   regenerate <dir> (what `just types` runs)

@@ -68,6 +68,10 @@ name = "barrage-protocol"
 version = "0.0.0"
 dependencies = [
  "barrage-plan",
+ "serde",
+ "serde_json",
+ "thiserror",
+ "ts-rs",
 ]
 
 [[package]]
@@ -85,6 +89,7 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "barrage-plan",
+ "barrage-protocol",
  "ts-rs",
 ]
 
