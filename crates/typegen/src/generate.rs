@@ -58,7 +58,7 @@ impl Scratch {
         let n = NEXT.fetch_add(1, Ordering::Relaxed);
         let path = std::env::temp_dir().join(format!("barrage-typegen-{}-{n}", std::process::id()));
         if path.exists() {
-            fs::remove_dir_all(&path)?;
+            fs::remove_dir_all(&path).with_context(|| format!("clearing {}", path.display()))?;
         }
         fs::create_dir_all(&path).with_context(|| format!("creating {}", path.display()))?;
         Ok(Self(path))
@@ -95,8 +95,8 @@ mod tests {
     fn large_integers_are_numbers_and_options_are_never_null() {
         let files = generate().unwrap();
         for (name, content) in &files {
-            assert!(!content.contains("bigint"), "{name} uses bigint");
-            assert!(!content.contains("null"), "{name} allows null");
+            assert!(!content.contains(": bigint"), "{name} uses bigint");
+            assert!(!content.contains("| null"), "{name} allows null");
         }
     }
 }

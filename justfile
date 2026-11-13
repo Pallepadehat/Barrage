@@ -29,6 +29,8 @@ check: check-rust check-types check-ts
 check-rust:
     cargo fmt --all --check
     cargo clippy --workspace --all-targets --locked -- -D warnings
+    # The workspace build unifies features, so also lint the plan crate without `ts`.
+    cargo clippy -p barrage-plan --all-targets --locked -- -D warnings
     cargo test --workspace --locked
 
 # Fails if packages/types is stale (run `just types`)
