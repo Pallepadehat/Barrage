@@ -27,7 +27,7 @@ Goal: an empty-but-real monorepo where every crate and package builds, `just che
 | M0-06 | ts-rs type generation + staleness check      | M0-03, M0-05        | done   |       |
 | M0-07 | Protocol v0 + sidecar echo                   | M0-05               | done   |       |
 | M0-08 | Tauri app shell + window chrome              | M0-02               | done   |       |
-| M0-09 | Design tokens + shadcn base in `packages/ui` | M0-02               | todo   |       |
+| M0-09 | Design tokens + shadcn base in `packages/ui` | M0-02               | done   |       |
 | M0-10 | App ↔ sidecar wiring through `lib/ipc.ts`    | M0-06, M0-07, M0-08 | todo   |       |
 | M0-11 | Contributor docs (README, CONTRIBUTING)      | M0-03               | todo   |       |
 
@@ -108,6 +108,8 @@ Goal: an empty-but-real monorepo where every crate and package builds, `just che
 Plan validation and compile step · variable substitution and built-in functions · virtual-user loop on tokio with ramp-up, duration/iteration stop, think time + jitter · HTTP via reqwest/rustls with per-user cookie jars · assertions (status, body, JSONPath, response time) · extractors (JSONPath, regex, header) · CSV data sets · HdrHistogram aggregation and 500 ms snapshots · cancellation within 1 s · in-process mock server and integration tests · `barrage run` CLI with live line and summary table · throughput benchmark in CI.
 
 ## M2 — Desktop editors (coarse)
+
+Open from M0-09 ([ADR 0003](decisions/0003-light-brand-contrast.md)): the light-mode status colours fail AA as text, so the pending pairs in `packages/ui/scripts/contrast.ts` must pass before `MethodBadge`/`StatusBadge` ship.
 
 Plan store (Zustand + Immer + zundo) · plan tree with keyboard nav, drag reorder, context menu · plan, thread group and request editors · `KeyValueEditor`, `VariableInput`, `CodeEditor` · Send once with inline results · file new/open/save/recent with native dialogs · `lib/shortcuts.ts` feeding native menu, command palette and tooltips · welcome and empty states.
 

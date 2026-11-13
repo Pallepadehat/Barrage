@@ -1,4 +1,11 @@
 {
   "extends": "../../tsconfig.base.json",
-  "include": ["src"]
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "types": ["node"],
+    "paths": {
+      "@barrage/ui/*": ["./src/*"]
+    }
+  },
+  "include": ["src", "scripts"]
 }

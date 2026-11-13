@@ -44,6 +44,7 @@ check-ts:
     pnpm biome ci .
     pnpm -r typecheck
     pnpm vitest run
+    pnpm --filter @barrage/ui contrast
 
 # Format Rust and TS
 fmt:

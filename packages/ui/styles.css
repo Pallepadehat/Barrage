@@ -1,0 +1,10 @@
+/* SPDX-License-Identifier: MIT */
+/*
+ * Everything an app needs from @barrage/ui, imported after `tailwindcss`:
+ * the tokens, the enter/exit animation utilities the shadcn components use,
+ * and the component sources so Tailwind generates their classes.
+ */
+@import "./tokens.css";
+@import "tw-animate-css";
+
+@source "./src";

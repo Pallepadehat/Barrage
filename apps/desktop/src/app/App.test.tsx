@@ -11,6 +11,9 @@ describe("App shell", () => {
     const toolbar = screen.getByRole("banner");
     expect(toolbar.hasAttribute("data-tauri-drag-region")).toBe(true);
     expect(toolbar.textContent).toContain("Untitled plan");
+    expect(screen.getByRole("button", { name: "Run" }).hasAttribute("data-tauri-drag-region")).toBe(
+      false,
+    );
   });
 
   it("renders the sidebar, editor and collapsed results drawer", () => {

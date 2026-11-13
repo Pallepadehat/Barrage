@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "base-nova",
+  "rsc": false,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "tokens.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "iconLibrary": "lucide",
+  "aliases": {
+    "components": "@barrage/ui/components",
+    "utils": "cn",
+    "ui": "@barrage/ui/components",
+    "lib": "@barrage/ui/lib",
+    "hooks": "@barrage/ui/hooks"
+  }
+}
