@@ -8,3 +8,4 @@ An ADR is never edited after it's accepted. To change a decision, write a new AD
 
 | ADR | Title | Status |
 | --- | ----- | ------ |
+| [0001](0001-yaml-library.md) | YAML library: serde-saphyr | Accepted |
