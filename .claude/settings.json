@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(just:*)",
+      "Bash(cargo build:*)",
+      "Bash(cargo check:*)",
+      "Bash(cargo clippy:*)",
+      "Bash(cargo fmt:*)",
+      "Bash(cargo test:*)",
+      "Bash(cargo nextest:*)",
+      "Bash(cargo bench:*)",
+      "Bash(cargo run:*)",
+      "Bash(cargo tree:*)",
+      "Bash(cargo metadata:*)",
+      "Bash(pnpm install:*)",
+      "Bash(pnpm run:*)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm typecheck:*)",
+      "Bash(pnpm biome:*)",
+      "Bash(pnpm vitest:*)",
+      "Bash(pnpm tauri:*)",
+      "Bash(pnpm exec:*)",
+      "Bash(pnpm -r:*)",
+      "Bash(pnpm --filter:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git branch:*)",
+      "Bash(git switch:*)",
+      "Bash(git checkout -b:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr checks:*)",
+      "Bash(gh run view:*)",
+      "Bash(gh run list:*)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(**/*.p12)",
+      "Read(**/*.pem)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git reset --hard:*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/format.sh",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

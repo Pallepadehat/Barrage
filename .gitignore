@@ -1,0 +1,39 @@
+# Rust
+/target/
+**/*.rs.bk
+
+# Node / pnpm
+node_modules/
+.pnpm-store/
+*.tsbuildinfo
+dist/
+coverage/
+
+# Tauri
+apps/desktop/src-tauri/target/
+apps/desktop/src-tauri/gen/schemas/
+apps/desktop/src-tauri/binaries/
+
+# Test and run output
+*.jtl
+/samples*.csv
+/summary*.json
+playwright-report/
+test-results/
+
+# Env and secrets
+.env
+.env.*
+!.env.example
+*.p12
+*.pem
+
+# Editors / OS
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Claude Code local-only settings
+.claude/settings.local.json

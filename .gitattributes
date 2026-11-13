@@ -1,0 +1,8 @@
+* text=auto eol=lf
+*.png binary
+*.icns binary
+*.ico binary
+# Generated: collapse in diffs, exclude from language stats
+packages/types/src/generated/** linguist-generated=true -diff
+pnpm-lock.yaml linguist-generated=true -diff
+Cargo.lock linguist-generated=true
