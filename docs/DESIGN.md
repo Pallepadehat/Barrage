@@ -36,6 +36,8 @@ We use shadcn's CSS-variable theme (Tailwind v4, OKLCH) with the **neutral** bas
 | `--ring`             | `var(--brand)`            | `var(--brand)`            | Focus ring                               |
 | `--primary`          | `oklch(0.205 0 0)`        | `oklch(0.97 0 0)`         | Neutral primary buttons                  |
 | `--brand`            | `oklch(0.57 0.19 256)`    | `oklch(0.68 0.17 256)`    | Run, active selection, main chart series |
+| `--primary-foreground` | `oklch(0.985 0 0)`      | `oklch(0.205 0 0)`        | Text on `--primary` fills                |
+| `--brand-foreground` | `oklch(1 0 0)`            | `oklch(0.165 0 0)`        | Text on `--brand` fills (Run)            |
 | `--success`          | `oklch(0.63 0.15 150)`    | `oklch(0.72 0.15 150)`    | Passing assertions, 2xx                  |
 | `--warning`          | `oklch(0.75 0.15 75)`     | `oklch(0.80 0.14 75)`     | Slow responses, 3xx/4xx, saturation      |
 | `--destructive`      | `oklch(0.58 0.21 27)`     | `oklch(0.68 0.19 25)`     | Failures, 5xx, errors, Stop              |

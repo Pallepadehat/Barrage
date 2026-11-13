@@ -13,7 +13,7 @@
   "iconLibrary": "lucide",
   "aliases": {
     "components": "@barrage/ui/components",
-    "utils": "@barrage/ui/lib/utils",
+    "utils": "cn",
     "ui": "@barrage/ui/components",
     "lib": "@barrage/ui/lib",
     "hooks": "@barrage/ui/hooks"

@@ -109,6 +109,8 @@ Plan validation and compile step · variable substitution and built-in functions
 
 ## M2 — Desktop editors (coarse)
 
+Open from M0-09 ([ADR 0003](decisions/0003-light-brand-contrast.md)): the light-mode status colours fail AA as text, so the pending pairs in `packages/ui/scripts/contrast.ts` must pass before `MethodBadge`/`StatusBadge` ship.
+
 Plan store (Zustand + Immer + zundo) · plan tree with keyboard nav, drag reorder, context menu · plan, thread group and request editors · `KeyValueEditor`, `VariableInput`, `CodeEditor` · Send once with inline results · file new/open/save/recent with native dialogs · `lib/shortcuts.ts` feeding native menu, command palette and tooltips · welcome and empty states.
 
 ## M3 — Live results (coarse)

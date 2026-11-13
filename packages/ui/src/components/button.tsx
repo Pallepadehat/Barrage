@@ -5,8 +5,10 @@ import { cn } from "cn";
 
 /**
  * shadcn `Button` (base-nova) with the DESIGN §4.1 changes: sizes `sm` h-6,
- * `default` h-7, `lg` h-8 (Run); a `brand` variant for Run; 13 px text,
- * 6 px radius, a 2 px offset focus ring, and colour changes without a tween.
+ * `default` h-7, `lg` h-8 (Run); a `brand` variant for Run; `destructive` as
+ * an outline (Stop, §3.3) so its text stays AA; padding on the 4 px grid;
+ * 13 px text, 6 px radius, a 2 px offset focus ring, and colour changes
+ * without a tween.
  */
 const buttonVariants = cva(
   "group/button inline-flex shrink-0 items-center justify-center rounded-md border border-transparent bg-clip-padding text-[13px] font-medium whitespace-nowrap transition-transform duration-(--motion-fast) ease-fast outline-none select-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
@@ -22,14 +24,13 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50",
         destructive:
-          "bg-destructive/10 text-destructive hover:bg-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30",
+          "border-destructive bg-background text-destructive hover:border-destructive/70",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
-        sm: "h-6 gap-1 px-2 text-xs has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
-        default:
-          "h-7 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
-        lg: "h-8 gap-1.5 px-3 has-data-[icon=inline-end]:pr-2.5 has-data-[icon=inline-start]:pl-2.5",
+        sm: "h-6 gap-1 px-2 text-xs has-data-[icon=inline-end]:pr-1 has-data-[icon=inline-start]:pl-1 [&_svg:not([class*='size-'])]:size-3.5",
+        default: "h-7 gap-1 px-3 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
+        lg: "h-8 gap-2 px-3 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
         "icon-sm": "size-6 [&_svg:not([class*='size-'])]:size-3.5",
         icon: "size-7",
         "icon-lg": "size-8",
