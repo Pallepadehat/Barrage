@@ -35,7 +35,7 @@ We use shadcn's CSS-variable theme (Tailwind v4, OKLCH) with the **neutral** bas
 | `--border`           | `oklch(0.92 0 0)`         | `oklch(1 0 0 / 0.09)`     | Hairlines, inputs                        |
 | `--ring`             | `var(--brand)`            | `var(--brand)`            | Focus ring                               |
 | `--primary`          | `oklch(0.205 0 0)`        | `oklch(0.97 0 0)`         | Neutral primary buttons                  |
-| `--brand`            | `oklch(0.60 0.19 256)`    | `oklch(0.68 0.17 256)`    | Run, active selection, main chart series |
+| `--brand`            | `oklch(0.57 0.19 256)`    | `oklch(0.68 0.17 256)`    | Run, active selection, main chart series |
 | `--success`          | `oklch(0.63 0.15 150)`    | `oklch(0.72 0.15 150)`    | Passing assertions, 2xx                  |
 | `--warning`          | `oklch(0.75 0.15 75)`     | `oklch(0.80 0.14 75)`     | Slow responses, 3xx/4xx, saturation      |
 | `--destructive`      | `oklch(0.58 0.21 27)`     | `oklch(0.68 0.19 25)`     | Failures, 5xx, errors, Stop              |
@@ -44,6 +44,7 @@ We use shadcn's CSS-variable theme (Tailwind v4, OKLCH) with the **neutral** bas
 
 - Use `--brand` sparingly: the Run button, the selected tree row, the main series in each chart, the focus ring. That's all.
 - A status colour always comes with text or an icon. Colour alone never carries meaning (for accessibility and colour-blind users).
+- The light `--brand` was darkened from L 0.60 so white text on it meets AA; see [ADR 0003](decisions/0003-light-brand-contrast.md).
 - Light and dark follow the system (`prefers-color-scheme`). There is no in-app theme switch in v1.
 
 ### 2.2 Typography

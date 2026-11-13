@@ -10,3 +10,4 @@ An ADR is never edited after it's accepted. To change a decision, write a new AD
 | --- | ----- | ------ |
 | [0001](0001-yaml-library.md) | YAML library: serde-saphyr | Accepted |
 | [0002](0002-ts-type-generation.md) | TS type generation: ts-rs behind a feature, run by `barrage-typegen` | Accepted |
+| [0003](0003-light-brand-contrast.md) | Light-theme brand lightness for AA contrast | Accepted |
