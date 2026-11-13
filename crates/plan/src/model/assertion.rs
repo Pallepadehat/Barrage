@@ -9,6 +9,7 @@ use serde::{Deserialize, Serialize};
 /// Patterns and paths are kept as text here; the engine parses them once
 /// before a run and reports errors in the editor.
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[cfg_attr(feature = "ts", derive(ts_rs::TS))]
 #[serde(tag = "type", rename_all = "camelCase", deny_unknown_fields)]
 pub enum Assertion {
     /// Status code matches a spec such as `200,201`, `200-299` or `2xx`.
@@ -38,6 +39,7 @@ pub enum Assertion {
             deserialize_with = "super::scalar::opt_text",
             skip_serializing_if = "Option::is_none"
         )]
+        #[cfg_attr(feature = "ts", ts(optional))]
         value: Option<String>,
     },
     /// The response arrived within a time limit.
@@ -58,12 +60,14 @@ pub enum Assertion {
             deserialize_with = "super::scalar::opt_text",
             skip_serializing_if = "Option::is_none"
         )]
+        #[cfg_attr(feature = "ts", ts(optional))]
         value: Option<String>,
     },
 }
 
 /// Text checks for body assertions.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[cfg_attr(feature = "ts", derive(ts_rs::TS))]
 #[serde(rename_all = "camelCase")]
 pub enum TextCheck {
     /// The text appears in the body.
@@ -74,6 +78,7 @@ pub enum TextCheck {
 
 /// Checks for JSONPath assertions.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[cfg_attr(feature = "ts", derive(ts_rs::TS))]
 #[serde(rename_all = "camelCase")]
 pub enum JsonPathCheck {
     /// The path matches at least one node.
@@ -88,6 +93,7 @@ pub enum JsonPathCheck {
 
 /// Checks for header assertions.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[cfg_attr(feature = "ts", derive(ts_rs::TS))]
 #[serde(rename_all = "camelCase")]
 pub enum HeaderCheck {
     /// The header is present.
