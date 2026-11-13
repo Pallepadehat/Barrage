@@ -1,0 +1,26 @@
+/* SPDX-License-Identifier: MIT */
+@import "tailwindcss";
+@import "@barrage/ui/tokens.css";
+
+@layer base {
+  /* The window is transparent so the sidebar can show vibrancy; regions paint their own fill. */
+  html,
+  body,
+  #root {
+    height: 100%;
+    background: transparent;
+  }
+
+  body {
+    margin: 0;
+    overflow: hidden;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    line-height: 18px;
+    color: var(--foreground);
+    /* Native feel: default cursor and no text selection in the chrome. */
+    cursor: default;
+    user-select: none;
+    -webkit-font-smoothing: antialiased;
+  }
+}
