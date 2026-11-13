@@ -2,7 +2,11 @@
 
 export type { Assertion } from "./Assertion";
 export type { BodyType } from "./BodyType";
+export type { Command } from "./Command";
+export type { CommandMessage } from "./CommandMessage";
 export type { CsvDataSet } from "./CsvDataSet";
+export type { Event } from "./Event";
+export type { EventMessage } from "./EventMessage";
 export type { Extractor } from "./Extractor";
 export type { HeaderCheck } from "./HeaderCheck";
 export type { HttpDefaults } from "./HttpDefaults";
