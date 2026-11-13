@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: MIT
 #
 # The gate in CI: `just setup && just check` on macOS, same as locally.
-# A desktop build job joins once the Tauri app lands (M0-08).
+# A second job builds the desktop app (debug, no bundle) so Tauri breakage shows up too.
 
 name: CI
 
@@ -55,3 +55,31 @@ jobs:
 
       - name: just check
         run: just check
+
+  desktop:
+    name: desktop build
+    runs-on: macos-15
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      - name: Install JS deps
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Rust toolchain
+        run: rustup toolchain install
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          save-if: ${{ github.event_name != 'pull_request' }}
+
+      # Builds the UI (beforeBuildCommand) and the debug app binary; skips dmg packaging.
+      - name: tauri build --debug
+        run: pnpm --filter @barrage/desktop tauri build --debug --no-bundle

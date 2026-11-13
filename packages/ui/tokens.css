@@ -1,0 +1,40 @@
+/* SPDX-License-Identifier: MIT */
+/*
+ * Design tokens from docs/DESIGN.md §2. Components reference these only.
+ *
+ * M0-08 seeds the subset the app shell needs; M0-09 completes the set
+ * (brand and status colours, radius, motion) and the shadcn mapping.
+ */
+
+:root {
+  color-scheme: light dark;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", system-ui, sans-serif;
+  --font-mono: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, monospace;
+
+  --background: oklch(1 0 0);
+  --sidebar: oklch(0.975 0 0 / 0.72);
+  --foreground: oklch(0.165 0 0);
+  --muted-foreground: oklch(0.52 0 0);
+  --border: oklch(0.92 0 0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: oklch(0.165 0 0);
+    --sidebar: oklch(0.205 0 0 / 0.72);
+    --foreground: oklch(0.97 0 0);
+    --muted-foreground: oklch(0.68 0 0);
+    --border: oklch(1 0 0 / 0.09);
+  }
+}
+
+/* Tailwind utilities (bg-background, text-muted-foreground, …). Fonts need no mapping:
+   these unlayered values override Tailwind's own --font-sans / --font-mono. */
+@theme inline {
+  --color-background: var(--background);
+  --color-sidebar: var(--sidebar);
+  --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+}
