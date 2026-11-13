@@ -2,6 +2,9 @@
 
 //! Round-trip tests on the checked-in example plans.
 
+// Integration-test helpers fall outside clippy.toml's test exemptions.
+#![allow(clippy::unwrap_used, clippy::panic)]
+
 use std::path::PathBuf;
 
 use barrage_plan::{Format, Plan};

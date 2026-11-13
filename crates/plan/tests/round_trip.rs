@@ -2,6 +2,9 @@
 
 //! Round-trips a plan that uses every field and variant, in both formats.
 
+// Integration-test helpers fall outside clippy.toml's test exemptions.
+#![allow(clippy::unwrap_used, clippy::panic)]
+
 use barrage_plan::{
     Assertion, BodyType, CsvDataSet, Extractor, Format, HeaderCheck, HttpDefaults, HttpRequest,
     JsonPathCheck, KeyValue, Method, Pause, Plan, Step, TextCheck, ThreadGroup, Variable,

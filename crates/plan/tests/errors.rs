@@ -2,6 +2,9 @@
 
 //! Unknown fields, bad input and file handling.
 
+// Integration-test helpers fall outside clippy.toml's test exemptions.
+#![allow(clippy::unwrap_used, clippy::panic)]
+
 use std::path::PathBuf;
 
 use barrage_plan::{Format, PlanError};
