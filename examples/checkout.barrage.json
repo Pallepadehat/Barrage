@@ -1,0 +1,57 @@
+{
+  "name": "Checkout API",
+  "variables": [
+    {
+      "key": "host",
+      "value": "https://api.example.com"
+    }
+  ],
+  "defaults": {
+    "baseUrl": "${host}",
+    "timeoutMs": 30000,
+    "cookies": true
+  },
+  "csvData": [
+    {
+      "path": "users.csv",
+      "variables": [
+        "email",
+        "password"
+      ],
+      "recycle": true
+    }
+  ],
+  "threadGroups": [
+    {
+      "name": "Shoppers",
+      "users": 200,
+      "rampUpSecs": 60,
+      "durationSecs": 300,
+      "thinkTimeMs": 500,
+      "thinkJitterMs": 250,
+      "steps": [
+        {
+          "type": "http",
+          "name": "Login",
+          "method": "POST",
+          "url": "/login",
+          "bodyType": "json",
+          "body": "{\"email\":\"${email}\",\"password\":\"${password}\"}",
+          "assertions": [
+            {
+              "type": "status",
+              "expected": "2xx"
+            }
+          ],
+          "extractors": [
+            {
+              "kind": "jsonPath",
+              "var": "token",
+              "expr": "$.token"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
