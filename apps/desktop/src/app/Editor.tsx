@@ -4,7 +4,9 @@
 export function Editor() {
   return (
     <main className="min-h-0 flex-1 overflow-auto p-6">
-      <p className="text-muted-foreground">Select a step in the sidebar to edit it.</p>
+      <div className="max-w-[880px]">
+        <p className="text-muted-foreground">Select a step in the sidebar to edit it.</p>
+      </div>
     </main>
   );
 }
