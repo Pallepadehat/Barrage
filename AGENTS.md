@@ -52,7 +52,9 @@ Toolchain: Rust stable (see `rust-toolchain.toml`), Node (see `.node-version`), 
 | `just types`     | Regenerate `packages/types` from Rust (ts-rs)                    |
 | `just bench`     | Engine throughput benchmark                                      |
 
-Before you say a change is done, run `just check` and make sure it passes. If a recipe doesn't exist yet, run the underlying `cargo`/`pnpm` commands directly and say so.
+All recipes exist. `dev`, `types` and `bench` are stubs that print "not yet implemented" until M0-08, M0-06 and M1 land; `check` doesn't include the types-up-to-date check until M0-06.
+
+Before you say a change is done, run `just check` and make sure it passes.
 
 ## How to work
 
