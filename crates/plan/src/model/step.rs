@@ -9,6 +9,7 @@ use super::serde_util::{default_true, is_true};
 
 /// One step in a thread group, tagged by `type` on the wire.
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[cfg_attr(feature = "ts", derive(ts_rs::TS))]
 #[serde(tag = "type", rename_all = "camelCase", deny_unknown_fields)]
 pub enum Step {
     /// Send an HTTP request.
@@ -19,6 +20,7 @@ pub enum Step {
 
 /// A fixed delay between requests.
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[cfg_attr(feature = "ts", derive(ts_rs::TS))]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct Pause {
     /// Display name.

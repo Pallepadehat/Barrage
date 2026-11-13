@@ -18,15 +18,25 @@ setup:
 dev:
     @echo "just dev: not yet implemented (lands with M0-08)"
 
-# The gate: formatting, lints, typecheck and all tests
-check: check-rust check-ts
+# Where `just types` writes the generated TS types
+types_dir := "packages/types/src/generated"
+
+# The gate: formatting, lints, typecheck, all tests and up-to-date generated types
+check: check-rust check-types check-ts
 
 # Rust half of the gate
 [private]
 check-rust:
     cargo fmt --all --check
     cargo clippy --workspace --all-targets --locked -- -D warnings
+    # The workspace build unifies features, so also lint the plan crate without `ts`.
+    cargo clippy -p barrage-plan --all-targets --locked -- -D warnings
     cargo test --workspace --locked
+
+# Fails if packages/types is stale (run `just types`)
+[private]
+check-types:
+    cargo run --quiet --locked -p barrage-typegen -- check {{types_dir}}
 
 # TypeScript half of the gate
 [private]
@@ -47,7 +57,7 @@ test:
 
 # Regenerate packages/types from Rust (ts-rs)
 types:
-    @echo "just types: not yet implemented (lands with M0-06)"
+    cargo run --quiet --locked -p barrage-typegen -- write {{types_dir}}
 
 # Engine throughput benchmark
 bench:

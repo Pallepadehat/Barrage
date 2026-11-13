@@ -7,6 +7,7 @@ use serde::{Deserialize, Serialize};
 /// Pulls a value from a response into a variable scoped to the virtual user,
 /// tagged by `kind` on the wire.
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[cfg_attr(feature = "ts", derive(ts_rs::TS))]
 #[serde(tag = "kind", rename_all = "camelCase", deny_unknown_fields)]
 pub enum Extractor {
     /// An RFC 9535 JSONPath query on the response body; takes the first match.
@@ -21,6 +22,7 @@ pub enum Extractor {
             deserialize_with = "super::scalar::opt_text",
             skip_serializing_if = "Option::is_none"
         )]
+        #[cfg_attr(feature = "ts", ts(optional))]
         default: Option<String>,
     },
     /// A regular expression on the response body; takes a capture group.
@@ -31,6 +33,7 @@ pub enum Extractor {
         expr: String,
         /// Capture group to take. Unset means group 1.
         #[serde(default, skip_serializing_if = "Option::is_none")]
+        #[cfg_attr(feature = "ts", ts(optional))]
         group: Option<u32>,
         /// Value used when nothing matches.
         #[serde(
@@ -38,6 +41,7 @@ pub enum Extractor {
             deserialize_with = "super::scalar::opt_text",
             skip_serializing_if = "Option::is_none"
         )]
+        #[cfg_attr(feature = "ts", ts(optional))]
         default: Option<String>,
     },
     /// A response header's value.
@@ -52,6 +56,7 @@ pub enum Extractor {
             deserialize_with = "super::scalar::opt_text",
             skip_serializing_if = "Option::is_none"
         )]
+        #[cfg_attr(feature = "ts", ts(optional))]
         default: Option<String>,
     },
 }

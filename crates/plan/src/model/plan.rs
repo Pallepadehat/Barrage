@@ -9,6 +9,7 @@ use super::thread_group::ThreadGroup;
 
 /// A complete test plan: the root of a `.barrage.yaml` / `.barrage.json` file.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[cfg_attr(feature = "ts", derive(ts_rs::TS))]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct Plan {
     /// Display name of the plan.
@@ -29,6 +30,7 @@ pub struct Plan {
 
 /// A plan variable: a name and its initial value.
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[cfg_attr(feature = "ts", derive(ts_rs::TS))]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct Variable {
     /// Variable name, referenced as `${key}`.
@@ -39,6 +41,7 @@ pub struct Variable {
 
 /// A name/value pair used for headers and query parameters.
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[cfg_attr(feature = "ts", derive(ts_rs::TS))]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct KeyValue {
     /// Header or parameter name.
@@ -55,22 +58,27 @@ pub struct KeyValue {
 ///
 /// Unset fields fall back to the engine's defaults.
 #[derive(Debug, Clone, Default, PartialEq, Eq, Serialize, Deserialize)]
+#[cfg_attr(feature = "ts", derive(ts_rs::TS))]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct HttpDefaults {
     /// Base URL that relative request URLs are resolved against.
     #[serde(default, skip_serializing_if = "Option::is_none")]
+    #[cfg_attr(feature = "ts", ts(optional))]
     pub base_url: Option<String>,
     /// Headers sent with every request.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub headers: Vec<KeyValue>,
     /// Request timeout in milliseconds.
     #[serde(default, skip_serializing_if = "Option::is_none")]
+    #[cfg_attr(feature = "ts", ts(optional))]
     pub timeout_ms: Option<u64>,
     /// Whether redirects are followed.
     #[serde(default, skip_serializing_if = "Option::is_none")]
+    #[cfg_attr(feature = "ts", ts(optional))]
     pub follow_redirects: Option<bool>,
     /// Whether each virtual user keeps a cookie jar.
     #[serde(default, skip_serializing_if = "Option::is_none")]
+    #[cfg_attr(feature = "ts", ts(optional))]
     pub cookies: Option<bool>,
 }
 
@@ -83,6 +91,7 @@ impl HttpDefaults {
 
 /// A CSV file whose rows feed variables, one row per user iteration.
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[cfg_attr(feature = "ts", derive(ts_rs::TS))]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct CsvDataSet {
     /// Path to the CSV file, relative to the plan file.
@@ -92,6 +101,7 @@ pub struct CsvDataSet {
     pub variables: Vec<String>,
     /// Column delimiter. Unset means a comma.
     #[serde(default, skip_serializing_if = "Option::is_none")]
+    #[cfg_attr(feature = "ts", ts(optional))]
     pub delimiter: Option<char>,
     /// At end of file, start over (`true`) or stop the user (`false`).
     /// Always written, unlike other defaults, so the choice is visible in the file.

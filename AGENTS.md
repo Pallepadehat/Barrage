@@ -30,6 +30,7 @@ crates/engine/         barrage-engine: runner, assertions, extractors, metrics
 crates/protocol/       barrage-protocol: sidecar stdio messages (NDJSON)
 crates/sidecar/        engine binary the app spawns
 crates/cli/            `barrage` command-line tool
+crates/typegen/        dev tool behind `just types`: writes/checks packages/types
 packages/ui/           shadcn/ui components + tokens.css (no app logic)
 packages/types/        TS types generated from Rust by ts-rs — never edit by hand
 examples/              sample plans (.barrage.yaml / .barrage.json)
@@ -52,7 +53,7 @@ Toolchain: Rust stable (see `rust-toolchain.toml`), Node (see `.node-version`), 
 | `just types`     | Regenerate `packages/types` from Rust (ts-rs)                    |
 | `just bench`     | Engine throughput benchmark                                      |
 
-All recipes exist. `dev`, `types` and `bench` are stubs that print "not yet implemented" until M0-08, M0-06 and M1 land; `check` doesn't include the types-up-to-date check until M0-06.
+All recipes exist. `dev` and `bench` are stubs that print "not yet implemented" until M0-08 and M1 land.
 
 Before you say a change is done, run `just check` and make sure it passes.
 
@@ -73,14 +74,14 @@ Before you say a change is done, run `just check` and make sure it passes.
 
 **Rust**
 - `rustfmt`; `clippy -D warnings` (workspace lints in the root `Cargo.toml`).
-- `thiserror` in libraries, `anyhow` only in binaries (`sidecar`, `cli`, `src-tauri`).
+- `thiserror` in libraries, `anyhow` only in binaries (`sidecar`, `cli`, `typegen`, `src-tauri`).
 - No `unwrap()` / `expect()` / `panic!` outside tests. A bad response (invalid UTF-8, huge body, broken connection) is a failed sample, never a panic.
 - Doc comments on every public item.
 - Hot path (per-sample code) must not allocate needlessly: intern labels, compile regex/JSONPath once per run, zero-alloc substitution when a string has no `${`.
 - Latency is measured from send to last byte; the timer starts after the request is built. In paced mode, measure from the scheduled send time (coordinated omission).
 
 **Types across the boundary**
-- Plan and protocol types are defined once in Rust with `serde` + `ts-rs`. Run `just types` after changing them and commit the output. CI fails if `packages/types` is stale.
+- Plan and protocol types are defined once in Rust with `serde` + `ts-rs` (derived behind each crate's `ts` feature; see ADR 0002). Run `just types` after changing them and commit the output. CI fails if `packages/types` is stale.
 - Plan files keep a stable key order and round-trip YAML ⇄ JSON losslessly. Changing the plan format means updating `examples/` and `docs/plan-format.md`.
 
 **TypeScript / UI**

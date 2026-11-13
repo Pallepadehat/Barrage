@@ -12,6 +12,7 @@ use super::step::Step;
 /// A group stops when its duration or its iteration count is reached,
 /// whichever comes first.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[cfg_attr(feature = "ts", derive(ts_rs::TS))]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ThreadGroup {
     /// Display name, also used to label the group's results.
@@ -26,9 +27,11 @@ pub struct ThreadGroup {
     pub ramp_up_secs: u64,
     /// Stop after this many seconds.
     #[serde(default, skip_serializing_if = "Option::is_none")]
+    #[cfg_attr(feature = "ts", ts(optional))]
     pub duration_secs: Option<u64>,
     /// Stop each user after this many iterations of the steps.
     #[serde(default, skip_serializing_if = "Option::is_none")]
+    #[cfg_attr(feature = "ts", ts(optional))]
     pub iterations: Option<u64>,
     /// Wait between steps, in milliseconds.
     #[serde(default, skip_serializing_if = "is_zero")]
@@ -42,6 +45,7 @@ pub struct ThreadGroup {
         deserialize_with = "super::scalar::opt_finite",
         skip_serializing_if = "Option::is_none"
     )]
+    #[cfg_attr(feature = "ts", ts(optional))]
     pub target_rps: Option<f64>,
     /// The steps each user runs, in order.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
