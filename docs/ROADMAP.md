@@ -22,7 +22,7 @@ Goal: an empty-but-real monorepo where every crate and package builds, `just che
 | M0-01 | Cargo workspace + crate stubs                | —                   | done   |       |
 | M0-02 | pnpm workspace + Biome + TS config           | —                   | done   |       |
 | M0-03 | justfile with the gate                       | M0-01, M0-02        | done   |       |
-| M0-04 | CI workflow                                  | M0-03               | todo   |       |
+| M0-04 | CI workflow                                  | M0-03               | done   |       |
 | M0-05 | Plan model v0 + YAML/JSON I/O                | M0-01               | todo   |       |
 | M0-06 | ts-rs type generation + staleness check      | M0-03, M0-05        | todo   |       |
 | M0-07 | Protocol v0 + sidecar echo                   | M0-05               | todo   |       |
@@ -53,7 +53,7 @@ Goal: an empty-but-real monorepo where every crate and package builds, `just che
 
 ### M0-04 — CI workflow
 
-- `.github/workflows/ci.yml` on PR and push to `main`: one job on `macos-14` running `just setup && just check`, with Rust and pnpm caches.
+- `.github/workflows/ci.yml` on PR and push to `main` and `develop`: one job on `macos-15` (`macos-14` runners are retired) running `just setup && just check`, with Rust and pnpm caches.
 - A separate job building the desktop app (`tauri build --debug` or equivalent) once M0-08 lands; until then it's absent, not failing.
 - **Acceptance:** CI is green on the PR that adds it.
 
