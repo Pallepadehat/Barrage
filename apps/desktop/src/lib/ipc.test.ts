@@ -24,10 +24,10 @@ describe("Tauri IPC", () => {
 
   it("rejects with the shell's message as an Error", async () => {
     mockIPC(() => {
-      throw "The engine isn't running.";
+      throw "The engine isn't running. Restart it to continue.";
     });
     await expect(createTauriIpc().send({ type: "hello" })).rejects.toThrow(
-      "The engine isn't running.",
+      "The engine isn't running. Restart it to continue.",
     );
   });
 

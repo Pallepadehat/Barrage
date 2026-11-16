@@ -56,7 +56,7 @@ export function createMockIpc(options: MockIpcOptions = {}): MockIpc {
       running = true;
     },
     async send(command) {
-      if (!running) throw new Error("The engine isn't running.");
+      if (!running) throw new Error("The engine isn't running. Restart it to continue.");
       const id = nextId();
       sent.push({ v: PROTOCOL_VERSION, id, ...command });
       if (command.type === "shutdown") {

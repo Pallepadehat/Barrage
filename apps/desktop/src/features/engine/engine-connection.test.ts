@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createMockIpc } from "../../lib/ipc-mock";
-import { createEngineConnection, type EngineStatus, NO_ANSWER } from "./engine-connection";
+import { createEngineConnection, type EngineState, NO_ANSWER } from "./engine-connection";
 
 type Connection = ReturnType<typeof createEngineConnection>;
 
 /** Resolves with the status once it's in `state` (right away if it already is). */
-function reach(connection: Connection, state: EngineStatus["state"]): Promise<EngineStatus> {
+function reach(connection: Connection, state: EngineState["state"]): Promise<EngineState> {
   return new Promise((resolve) => {
     const check = () => {
       const status = connection.getSnapshot();

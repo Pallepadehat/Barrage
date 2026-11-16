@@ -31,20 +31,28 @@ describe("engine status in the toolbar", () => {
   it("shows the engine version from ready, an error when the engine dies, and restarts it", async () => {
     const ipc = createMockIpc({ version: "1.2.3" });
     render(<App ipc={ipc} />);
-    const status = screen.getByRole("status");
-    expect(status.textContent).toBe("Starting engine…");
+    expect(screen.getByText("Starting engine…")).toBeDefined();
+    // Only errors are announced.
+    expect(screen.getByRole("status").textContent).toBe("");
 
-    expect((await screen.findByText("Engine 1.2.3")).getAttribute("role")).toBe("status");
+    await screen.findByText("Engine 1.2.3");
+    expect(screen.getByRole("status").textContent).toBe("");
 
     act(() => ipc.kill("The engine stopped unexpectedly (signal 9). Restart it to continue."));
     await screen.findByText("Engine stopped");
-    expect(screen.getByRole("status").textContent).toContain("(signal 9)");
+    expect(screen.getByRole("status").textContent).toBe(
+      "Engine stopped. The engine stopped unexpectedly (signal 9). Restart it to continue.",
+    );
     // The rest of the UI keeps working while the engine is down.
     expect(screen.getByRole("button", { name: "Run" })).toBeDefined();
 
-    fireEvent.click(screen.getByRole("button", { name: "Restart" }));
+    const restart = screen.getByRole("button", { name: "Restart engine" });
+    restart.focus();
+    fireEvent.click(restart);
     await screen.findByText("Engine 1.2.3");
-    expect(screen.queryByRole("button", { name: "Restart" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "Restart engine" })).toBeNull();
+    // Keyboard focus stays in the toolbar instead of falling back to the body.
+    expect(document.activeElement?.textContent).toBe("Engine 1.2.3");
     expect(ipc.sent.filter((m) => m.type === "hello")).toHaveLength(2);
   });
 });

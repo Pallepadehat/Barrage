@@ -333,8 +333,9 @@ apps/desktop/src/
 │  ├─ thread-group/      # Thread group editor
 │  ├─ request-editor/    # Request tabs, send panel
 │  ├─ results/           # Dashboard, summary, samples, errors
-│  └─ run/               # Toolbar run controls, run store
-├─ lib/                  # ipc.ts, format.ts, shortcuts.ts, cn.ts
+│  ├─ run/               # Toolbar run controls, run store
+│  └─ engine/            # Engine handshake and status in the toolbar
+├─ lib/                  # ipc.ts (+ ipc-mock.ts, protocol.ts), format.ts, shortcuts.ts, cn.ts
 └─ stores/               # plan-store.ts (Zustand + zundo undo history)
 
 packages/ui/             # shadcn components + tokens.css (shared, no app logic)

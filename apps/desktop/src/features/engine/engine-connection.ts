@@ -2,7 +2,7 @@
 import type { EngineSignal, Ipc, Unsubscribe } from "../../lib/ipc";
 
 /** The engine as the UI sees it. */
-export type EngineStatus =
+export type EngineState =
   /** Spawning the sidecar and waiting for `ready`. */
   | { readonly state: "starting" }
   /** Handshake done; `version` is the engine's. */
@@ -13,7 +13,7 @@ export type EngineStatus =
 /** Keeps the engine's status, for `useSyncExternalStore`. */
 export interface EngineConnection {
   /** The current status. Stable between changes. */
-  getSnapshot(): EngineStatus;
+  getSnapshot(): EngineState;
   /** Calls `onChange` after every status change. */
   subscribe(onChange: () => void): Unsubscribe;
   /** Listens for engine signals, then starts the engine and says hello. Returns a close function. */
@@ -36,19 +36,19 @@ const messageOf = (cause: unknown): string =>
 
 /**
  * Creates the connection that drives the engine handshake: start the sidecar,
- * send `hello`, and turn `ready`, errors and exits into an {@link EngineStatus}.
+ * send `hello`, and turn `ready`, errors and exits into an {@link EngineState}.
  * Nothing here blocks: a dead or silent engine only changes the status.
  */
 export function createEngineConnection(
   ipc: Ipc,
   { helloTimeoutMs = 5000 }: EngineConnectionOptions = {},
 ): EngineConnection {
-  let status: EngineStatus = { state: "starting" };
+  let status: EngineState = { state: "starting" };
   const watchers = new Set<() => void>();
   let helloId: number | undefined;
   let timer: ReturnType<typeof setTimeout> | undefined;
 
-  const set = (next: EngineStatus) => {
+  const set = (next: EngineState) => {
     status = next;
     for (const watcher of watchers) watcher();
   };

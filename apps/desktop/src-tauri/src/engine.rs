@@ -10,7 +10,7 @@
 
 use std::sync::{Mutex, MutexGuard};
 
-use barrage_protocol::{Command, CommandMessage, decode_event, encode};
+use barrage_protocol::{Command, CommandMessage, Event, EventMessage, decode_event, encode};
 use tauri::async_runtime::Receiver;
 use tauri::{AppHandle, Emitter, Manager, State};
 use tauri_plugin_shell::ShellExt;
@@ -60,7 +60,9 @@ impl Engine {
             .shell()
             .sidecar(SIDECAR)
             .and_then(|command| command.spawn())
-            .map_err(|err| format!("Couldn't start the engine: {err}"))?;
+            .map_err(|err| {
+                format!("Couldn't start the engine ({err}). Restart it to try again.")
+            })?;
         inner.generation += 1;
         inner.child = Some(child);
         let generation = inner.generation;
@@ -75,7 +77,7 @@ impl Engine {
         let child = inner
             .child
             .as_mut()
-            .ok_or_else(|| "The engine isn't running.".to_owned())?;
+            .ok_or_else(|| "The engine isn't running. Restart it to continue.".to_owned())?;
         child
             .write(line.as_bytes())
             .map_err(|err| format!("Couldn't reach the engine: {err}"))
@@ -93,9 +95,13 @@ impl Engine {
 
     /// Asks the engine to exit when the app quits; kills it if it can't be asked.
     pub(crate) fn shutdown(&self) {
-        let Some(mut child) = self.lock().child.take() else {
+        let mut inner = self.lock();
+        // A new generation, so the exit this causes isn't reported as a crash.
+        inner.generation += 1;
+        let Some(mut child) = inner.child.take() else {
             return;
         };
+        drop(inner);
         let message = CommandMessage::new(SHUTDOWN_ID, Command::Shutdown);
         let asked = encode(&message)
             .ok()
@@ -107,13 +113,16 @@ impl Engine {
 }
 
 /// Starts the engine if it isn't running. Safe to call again, e.g. after a reload.
-#[tauri::command]
+///
+/// Commands are `async` so they run off the main thread: a stdin write can
+/// block while the engine is busy, and that must never freeze the window.
+#[tauri::command(async)]
 pub(crate) fn engine_start(app: AppHandle, engine: State<'_, Engine>) -> Result<(), String> {
     engine.start(&app)
 }
 
 /// Sends one command to the engine's stdin.
-#[tauri::command]
+#[tauri::command(async)]
 pub(crate) fn engine_send(
     message: CommandMessage,
     engine: State<'_, Engine>,
@@ -128,7 +137,19 @@ async fn forward(app: AppHandle, mut events: Receiver<CommandEvent>, generation:
         match event {
             CommandEvent::Stdout(line) => match decode_event(&line) {
                 Ok(message) => emit(&app, EVENT, message),
-                Err(err) => eprintln!("barrage: ignoring engine output: {err}"),
+                Err(err) => {
+                    eprintln!("barrage: ignoring engine output: {err}");
+                    // Answer the request it was meant for, so nothing waits forever.
+                    if let Some(id) = err.id() {
+                        let message =
+                            format!("The engine sent an answer the app can't read ({err}).");
+                        emit(
+                            &app,
+                            EVENT,
+                            EventMessage::new(Some(id), Event::Error { message }),
+                        );
+                    }
+                }
             },
             CommandEvent::Stderr(line) => {
                 eprintln!("engine: {}", String::from_utf8_lossy(line.trim_ascii_end()));
@@ -201,11 +222,19 @@ mod tests {
     }
 
     #[test]
+    fn the_exit_caused_by_shutdown_is_not_reported() {
+        let engine = Engine::default();
+        engine.lock().generation = 1;
+        engine.shutdown();
+        assert!(!engine.exited(1));
+    }
+
+    #[test]
     fn sending_without_a_running_engine_is_an_error() {
         let engine = Engine::default();
         let err = engine
             .send(&CommandMessage::new(1, Command::Hello))
             .unwrap_err();
-        assert_eq!(err, "The engine isn't running.");
+        assert_eq!(err, "The engine isn't running. Restart it to continue.");
     }
 }
