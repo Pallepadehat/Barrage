@@ -19,9 +19,9 @@ If code and a doc disagree, one of them is a bug. Fix whichever is wrong, and ne
 
 ## Status
 
-The repo is pre-foundation: only docs and tooling exist. The layout and commands below are the **target** that milestone M0 in `docs/ROADMAP.md` builds. When a task creates something listed here, it's real; until then, don't assume it exists.
+Milestone M0 (foundation) is done: everything in the layout and commands below exists. `crates/engine` and `crates/cli` are still stubs; M1 in `docs/ROADMAP.md` fills them in. Human contributors start at `README.md` and `CONTRIBUTING.md`.
 
-## Repository layout (target)
+## Repository layout
 
 ```text
 apps/desktop/          Tauri 2 app: React UI (src/) + Rust shell (src-tauri/)
