@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MIT
+import { EngineStatus } from "../features/engine";
 import { RunButton } from "../features/run";
 
 /**
@@ -7,7 +8,8 @@ import { RunButton } from "../features/run";
  * attribute, so controls stay clickable. The left inset leaves room for the
  * traffic lights at x = 16: `pl-24` is that clearance (16 px inset + the button
  * cluster + a gap), not a spacing step.
- * Run status and the command palette button arrive in later tasks.
+ * The status slot after Run shows the engine until runs land in M3; the
+ * command palette button arrives in a later task.
  */
 export function Toolbar() {
   return (
@@ -20,6 +22,7 @@ export function Toolbar() {
       </span>
       <div data-tauri-drag-region className="h-full flex-1" />
       <RunButton />
+      <EngineStatus />
     </header>
   );
 }

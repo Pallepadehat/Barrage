@@ -13,8 +13,12 @@ tauri-build.workspace = true
 
 [dependencies]
 anyhow.workspace = true
+barrage-protocol.workspace = true
+serde.workspace = true
 # `macos-private-api` allows the transparent window the sidebar vibrancy needs.
 tauri = { workspace = true, features = ["macos-private-api"] }
+# Spawns the engine sidecar and owns its pipes (PRD: sidecar IPC over stdio).
+tauri-plugin-shell.workspace = true
 
 [lints]
 workspace = true

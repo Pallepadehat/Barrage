@@ -46,7 +46,7 @@ Toolchain: Rust stable (see `rust-toolchain.toml`), Node (see `.node-version`), 
 | ---------------- | ---------------------------------------------------------------- |
 | `just`           | List all recipes                                                 |
 | `just setup`     | Install JS deps and Rust components                              |
-| `just dev`       | Run the desktop app with hot reload                              |
+| `just dev`       | Build the engine sidecar, then run the desktop app with hot reload |
 | `just check`     | **The gate.** fmt check, clippy, biome, typecheck, all tests, types-up-to-date check |
 | `just fmt`       | Format Rust and TS                                               |
 | `just test`      | Rust + TS tests                                                  |

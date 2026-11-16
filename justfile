@@ -14,8 +14,9 @@ setup:
     rustup toolchain install
     rustup component add rustfmt clippy
 
-# Run the desktop app with hot reload
+# Run the desktop app with hot reload (builds the engine sidecar first)
 dev:
+    pnpm --filter @barrage/desktop sidecar
     pnpm --filter @barrage/desktop tauri dev
 
 # Where `just types` writes the generated TS types

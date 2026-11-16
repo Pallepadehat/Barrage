@@ -8,12 +8,18 @@
 //! invisible. Time from process start to showing the window is logged to stderr
 //! as the cold-start figure (target: under 1 s on Apple silicon). It is taken
 //! at page load, before React's first render, so it is a lower bound.
+//!
+//! The engine runs as a sidecar process; see [`engine`].
+
+mod engine;
 
 use std::sync::{Arc, Once};
 use std::time::{Duration, Instant};
 
 use tauri::webview::PageLoadEvent;
-use tauri::{AppHandle, Manager};
+use tauri::{AppHandle, Manager, RunEvent};
+
+use crate::engine::{Engine, engine_send, engine_start};
 
 /// Label of the only window, as configured in `tauri.conf.json`.
 const MAIN_WINDOW: &str = "main";
@@ -27,6 +33,9 @@ fn main() -> anyhow::Result<()> {
     let shown_on_load = Arc::clone(&shown);
 
     tauri::Builder::default()
+        .plugin(tauri_plugin_shell::init())
+        .manage(Engine::default())
+        .invoke_handler(tauri::generate_handler![engine_start, engine_send])
         .setup(move |app| {
             let handle = app.handle().clone();
             std::thread::spawn(move || {
@@ -41,7 +50,12 @@ fn main() -> anyhow::Result<()> {
                 show_once(webview.app_handle(), &shown_on_load, started, "page loaded");
             }
         })
-        .run(tauri::generate_context!())?;
+        .build(tauri::generate_context!())?
+        .run(|app, event| {
+            if let RunEvent::Exit = event {
+                app.state::<Engine>().shutdown();
+            }
+        });
     Ok(())
 }
 

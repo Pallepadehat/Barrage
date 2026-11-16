@@ -9,10 +9,13 @@
     "build": "vite build",
     "preview": "vite preview",
     "tauri": "tauri",
+    "sidecar": "bash scripts/sidecar.sh",
     "typecheck": "tsc -p tsconfig.json"
   },
   "dependencies": {
+    "@barrage/types": "workspace:*",
     "@barrage/ui": "workspace:*",
+    "@tauri-apps/api": "2.12.4",
     "react": "19.3.1",
     "react-dom": "19.3.1"
   },
