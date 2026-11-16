@@ -2,6 +2,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./app/App";
+import { defaultIpc } from "./lib/ipc";
 import "./app/app.css";
 
 const root = document.getElementById("root");
@@ -11,6 +12,6 @@ if (root === null) {
 
 createRoot(root).render(
   <StrictMode>
-    <App />
+    <App ipc={defaultIpc()} />
   </StrictMode>,
 );
