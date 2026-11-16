@@ -29,7 +29,7 @@ Goal: an empty-but-real monorepo where every crate and package builds, `just che
 | M0-08 | Tauri app shell + window chrome              | M0-02               | done   |       |
 | M0-09 | Design tokens + shadcn base in `packages/ui` | M0-02               | done   |       |
 | M0-10 | App ↔ sidecar wiring through `lib/ipc.ts`    | M0-06, M0-07, M0-08 | done   |       |
-| M0-11 | Contributor docs (README, CONTRIBUTING)      | M0-03               | todo   |       |
+| M0-11 | Contributor docs (README, CONTRIBUTING)      | M0-03               | done   |       |
 
 ### M0-01 — Cargo workspace + crate stubs
 
